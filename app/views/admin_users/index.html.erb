@@ -1,0 +1,30 @@
+<% @page_title = "Users" %>
+<%= link_to("<< Back to Menu", {:controller => "access", :action => 'index'}, :class => 'back-link') %>
+<div class="users index">
+  <h2>Users</h2>
+
+  <%= link_to("Add New User", {:action => "new"}, :class => 'action new') %>
+
+  <div><%= pluralize(@admin_users.size, "user") %> found</div>
+  <table class="listing" summary="Users list">
+    <tr class="header">
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    <% @admin_users.each do |user| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.username %></td>
+      <td><%= mail_to(user.email) %></td>
+      <td class="actions">
+        <%= link_to("Edit", {:action => "edit", :id => user.id}, :class => 'action edit') %>
+        <%= link_to("Delete", {:action => "delete", :id => user.id}, :class => 'action delete') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
